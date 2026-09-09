@@ -183,7 +183,7 @@ const trips = [
     }
 ];
 
-
+let newId=0;
 function trajet(){
     console.log(``);
     console.log(`=== TRAJETS DISPONIBLES ===`);
@@ -239,7 +239,7 @@ function achat(){
                 }
             }
             let seatNumber = countSeats + 1;
-            let newId = tickets.length + 1;
+            newId  += 1;
 
             let ticket =
                 {
@@ -267,7 +267,79 @@ function achat(){
             console.log("Train complet");
         }
     }
- }
+}
+
+function afficherTicket(){
+        console.log(" ====== TICKETS ====== ");
+        if (tickets.length===0)
+        {   
+            console.log("Aucun ticket enregistré");
+            return;
+        }
+        for(let m=0; m<tickets.length; m++)
+        {
+            let ticket = tickets[m];
+            let trajet;
+            for(let l=0; l<trips.length; l++)
+            {
+                if (trips[l].id === ticket.tripId) 
+                {
+                trajet = trips[l];
+                break;
+                }
+            }
+            console.log(`Ticket #${ticket.id}`);
+            console.log(`Passager : ${ticket.passengerName}`);
+            console.log(`Trajet :${trajet.departure} --> ${trajet.destination}`);
+            console.log(`Place : ${ticket.seatNumber}`);
+            console.log(`Prix : ${ticket.price} DH`);
+            console.log("");
+        }
+}
+
+function annule()
+{
+
+let idTicket = parseInt(prompt("Identifiant du ticket : "));
+let check = false;
+let indexTicket;
+let trouvable;
+for(let x=0; x<tickets.length; x++)
+{
+    if(tickets[x].id===idTicket)
+    {
+      check = true;
+      indexTicket = x;
+      trouvable = tickets[x];
+    }
+}
+if(!check)
+{
+console.log(" Ticket introuvable ");
+return;
+}
+
+let trajet ; 
+for( let i= 0; i<trips.length; i++)
+{
+    if(trips[i].id===trouvable.tripId)
+    {
+        trajet = trips[i];
+        break;
+    }
+}
+
+tickets.splice(indexTicket, 1);
+trajet.availableSeats++;
+console.log(" Ticket annulé avec succès ");
+
+
+}
+
+function recherche(){
+    let name = prompt("Nom du passager : ");
+    
+}
 function affichertableau () {
 let choix;
 
@@ -305,7 +377,7 @@ switch(choix)
 
     case 3:
         console.log(`3. Afficher les tickets`);
-        ticket();
+        afficherTicket();
         break;
         
 
