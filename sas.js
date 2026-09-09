@@ -206,7 +206,8 @@ function achat(){
     let trajet;
     let check = false;
 
-    for (let j = 0; j < trips.length; j++) {
+    for (let j = 0; j < trips.length; j++) 
+{
         if (trips[j].id === id) 
         {
             result = true;
@@ -217,8 +218,7 @@ function achat(){
             }
             break;
         }
-    }
-
+}
     if (!result) 
     {
         console.log("Trajet introuvable");
@@ -227,51 +227,47 @@ function achat(){
     {
         console.log("Trajet trouvable");
         if (check) 
-        {
+    {
             console.log("Place disponible");
 
-            let newId = tickets.length +1;
+            let countSeats = 0;
+            for (let k = 0; k < tickets.length; k++) 
+            {
+                if (tickets[k].tripId === trajet.id) 
+                {
+                    countSeats++;
+                }
+            }
+            let seatNumber = countSeats + 1;
+            let newId = tickets.length + 1;
+
             let ticket =
                 {
                     id: newId,
                     passengerName: nom,
                     tripId: trajet.id,
-                    //seatNumber: ,
-                    price: trips.price
+                    seatNumber: seatNumber,
+                    price: trajet.price
                 };
             tickets.push(ticket);
+            trajet.availableSeats--;
 
             console.log("");
             console.log("Ticket acheté avec succès : ");
             console.log("");
-            
-            for(let k=0; k<tickets.length; k++)
-            {
-                let tripsTickets;
-                for (let n = 0; n < trips.length; n++) 
-                {
-                    if (trips[n].id === tickets[k].tripId) 
-                    {
-                        tripsTickets = trips[n];
-                    break;
-                    }
-                }
-            console.log(`Ticket #${tickets[k].id}`);
-            console.log(`Passager : ${tickets[k].passengerName}`);
-            console.log(`Trajet :${tripsTickets.departure} --> ${tripsTickets.destination}`);
-            console.log(`Place : ${tickets[k].seatNumber}`);
-            console.log(`Prix : ${tickets[k].price} DH`);
+            console.log(`Ticket #${ticket.id}`);
+            console.log(`Passager : ${ticket.passengerName}`);
+            console.log(`Trajet :${trajet.departure} --> ${trajet.destination}`);
+            console.log(`Place : ${ticket.seatNumber}`);
+            console.log(`Prix : ${ticket.price} DH`);
             console.log("");
-            }
-        }
+    }
         else 
         {
             console.log("Train complet");
         }
     }
-}
-
-
+ }
 function affichertableau () {
 let choix;
 
