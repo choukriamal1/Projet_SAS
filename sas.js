@@ -337,9 +337,65 @@ console.log(" Ticket annulé avec succès ");
 }
 
 function recherche(){
-    let name = prompt("Nom du passager : ");
-    
+    let name = prompt("Nom du passager : ").trim().toLowerCase();
+    let results = tickets.filter (ticket => ticket.passengerName.trim().toLowerCase()===name);
+    if (results ===0 )
+    {
+        console.log(`Aucune ticket de ${name} n est trouver `);
+        return;
+    }
+    console.log(`======Ticket trouves :======`);
+    results.forEach(ticket => 
+        {
+            let trajet = trips.find(t => t.id === ticket.tripId);
+            console.log("");
+            console.log(`Ticket #${ticket.id}`);
+            console.log(`Passager : ${ticket.passengerName}`);
+            console.log(`Trajet :${trajet.departure} --> ${trajet.destination}`);
+            console.log(`Place : ${ticket.seatNumber}`);
+            console.log(`Prix : ${ticket.price} DH`);
+            console.log("");
+    });
+        
 }
+
+function filtre() {
+    let depart = prompt("La ville du depart : ").trim().toLowerCase();
+    let trouves = 0;
+
+    console.log(`Résultat : `);
+    for (let i = 0; i < trips.length; i++) {
+        if (trips[i].departure.trim().toLowerCase() === depart) 
+        {
+            console.log("");       
+            console.log(`${trips[i].departure} --> ${trips[i].destination} : ${trips[i].price} DH`);
+            trouves++;
+        }
+    }
+    if (trouves === 0) 
+    {
+        console.log(`Aucun trajet au départ de ${depart} n'a été trouvé.`);
+    }
+}
+
+function trie() {
+    let T= trajet;
+    let swap;
+    for(let i=0; i<T.length-1; i++)
+    {
+        for(let j=0; j<T.length; j++)
+        {
+            if(T[j].price>T[j+1].price)
+            {
+                swap = T[j+1];
+                T[j+1] = T[j];
+                T[j] = swap;
+            }
+        }
+    }
+}
+
+
 function affichertableau () {
 let choix;
 
