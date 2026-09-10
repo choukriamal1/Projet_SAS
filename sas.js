@@ -1,5 +1,76 @@
 const prompt = require(`prompt-sync`)();
-const tickets = [];
+const tickets = [
+   {
+    id : 1,
+    passengerName : "Amal",
+    tripId : 1,
+    seatNumber : 1,
+    price : 25
+   },
+   {
+    id : 2,
+    passengerName : "choukri",
+    tripId : 1,
+    seatNumber : 2,
+    price : 25
+   },
+   {
+    id : 3,
+    passengerName : "Achraf",
+    tripId : 1,
+    seatNumber : 3,
+    price : 25
+   },
+   {
+    id : 4,
+    passengerName : "Iyad",
+    tripId : 4,
+    seatNumber : 1,
+    price : 65
+   },
+   {
+    id : 5,
+    passengerName : "Said",
+    tripId : 1,
+    seatNumber : 1,
+    price : 50
+   },
+   {
+    id : 6,
+    passengerName : "Abde",
+    tripId : 12,
+    seatNumber : 1,
+    price : 85
+   },
+   {
+    id : 7,
+    passengerName : "Meryeme",
+    tripId : 1,
+    seatNumber : 1,
+    price : 25
+   },
+   {
+    id : 8,
+    passengerName : "Chams",
+    tripId : 1,
+    seatNumber : 1,
+    price : 25
+   },
+   {
+    id : 9,
+    passengerName : "Aya",
+    tripId : 1,
+    seatNumber : 1,
+    price : 25
+   },
+   {
+    id : 10,
+    passengerName : "Chayma",
+    tripId : 1,
+    seatNumber : 1,
+    price : 25
+   }
+];
 const trips = [
     {
         id: 1,
@@ -183,7 +254,7 @@ const trips = [
     }
 ];
 
-let newId=0;
+let newId= tickets.length;
 function trajet(){
     console.log(``);
     console.log(`=== TRAJETS DISPONIBLES ===`);
@@ -199,6 +270,26 @@ function trajet(){
     }
 }
 
+function chercherPlaceLibre(tripId){
+    for(let place=1; place <=50; place++)
+    {
+       let libre = true;
+       
+       for(let i=0; i< tickets.length; i++)
+       {
+        if(tickets[i].tripId === tripId && tickets[i].seatNumber === place)
+        {
+            libre = false;
+            break;
+        }
+       }
+        if (libre)
+        {
+            return place;
+        }
+    }
+    return null;
+}
 function achat(){
     let nom = prompt("Nom du passager : ");
     let id = parseInt(prompt("Identifiant du trajet : "));
@@ -207,7 +298,7 @@ function achat(){
     let check = false;
 
     for (let j = 0; j < trips.length; j++) 
-{
+    {
         if (trips[j].id === id) 
         {
             result = true;
@@ -218,7 +309,7 @@ function achat(){
             }
             break;
         }
-}
+    }
     if (!result) 
     {
         console.log("Trajet introuvable");
@@ -238,7 +329,7 @@ function achat(){
                     countSeats++;
                 }
             }
-            let seatNumber = countSeats + 1;
+            let seatNumber = chercherPlaceLibre(trajet.id);
             newId  += 1;
 
             let ticket =
@@ -311,6 +402,7 @@ for(let x=0; x<tickets.length; x++)
       check = true;
       indexTicket = x;
       trouvable = tickets[x];
+      break;
     }
 }
 if(!check)
@@ -378,8 +470,9 @@ function filtre() {
     }
 }
 
+let tri_trips = [];
 function trie() {
-    let tri_trips= trips;
+    tri_trips=[...trips];//Spread operator or copy
     let swap;
     for(let i=0; i<tri_trips.length-1; i++)
     {
