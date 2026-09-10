@@ -379,20 +379,25 @@ function filtre() {
 }
 
 function trie() {
-    let T= trajet;
+    let tri_trips= trips;
     let swap;
-    for(let i=0; i<T.length-1; i++)
+    for(let i=0; i<tri_trips.length-1; i++)
     {
-        for(let j=0; j<T.length; j++)
+        for(let j=0; j<tri_trips.length-1-i; j++)
         {
-            if(T[j].price>T[j+1].price)
+            if(tri_trips[j].price>tri_trips[j+1].price)
             {
-                swap = T[j+1];
-                T[j+1] = T[j];
-                T[j] = swap;
+                swap = tri_trips[j];
+                tri_trips[j] = tri_trips[j+1];
+                tri_trips[j+1] = swap;
             }
         }
     }
+    
+    for(let i=0; i<tri_trips.length; i++)
+        {
+            console.log(`${tri_trips[i].departure} --> ${tri_trips[i].destination} : ${tri_trips[i].price} DH`);
+        }
 }
 
 
