@@ -31,7 +31,7 @@ const tickets = [
    {
     id : 5,
     passengerName : "Said",
-    tripId : 1,
+    tripId : 5,
     seatNumber : 1,
     price : 50
    },
@@ -45,30 +45,30 @@ const tickets = [
    {
     id : 7,
     passengerName : "Meryeme",
-    tripId : 1,
+    tripId : 5,
     seatNumber : 1,
-    price : 25
+    price : 110
    },
    {
     id : 8,
     passengerName : "Chams",
-    tripId : 1,
-    seatNumber : 1,
-    price : 25
+    tripId : 5,
+    seatNumber : 2,
+    price : 110
    },
    {
     id : 9,
     passengerName : "Aya",
-    tripId : 1,
+    tripId : 6,
     seatNumber : 1,
-    price : 25
+    price : 120
    },
    {
     id : 10,
     passengerName : "Chayma",
-    tripId : 1,
+    tripId : 7,
     seatNumber : 1,
-    price : 25
+    price : 150
    }
 ];
 const trips = [
@@ -254,6 +254,20 @@ const trips = [
     }
 ];
 
+for (let i = 0; i < tickets.length; i++) {
+    let traject = null;
+
+    for (let j = 0; j < trips.length; j++) {
+        if (tickets[i].tripId === trips[j].id) {
+            traject = trips[j];
+        }
+    }
+
+    if (traject !== null) {
+        traject.availableSeats--;
+    }
+}
+
 let newId= tickets.length;
 function trajet(){
     console.log(``);
@@ -294,8 +308,8 @@ function achat(){
     let nom = prompt("Nom du passager : ");
     let id = parseInt(prompt("Identifiant du trajet : "));
     let result = false;
-    let trajet;
     let check = false;
+    let trajet;
 
     for (let j = 0; j < trips.length; j++) 
     {
@@ -451,7 +465,7 @@ function recherche(){
         
 }
 
-function filtre() {
+function filtre(){
     let depart = prompt("La ville du depart : ").trim().toLowerCase();
     let trouves = 0;
 
@@ -493,6 +507,50 @@ function trie() {
         }
 }
 
+function statistiques(){
+    console.log("");
+    console.log("*Nombre total de tickets vendus");
+    console.log("");
+    let total = 0;
+    for(let i=0; i<tickets.length; i++)
+    {
+        total = tickets[i].id;
+    }
+    console.log(`=> Nombre total de tickets  : ${total}`);
+
+    console.log("");
+    console.log("*Calculer la somme des prix des tickets ");
+    console.log("");
+    let somme = 0;
+    for(let i=0; i<tickets.length; i++)
+    {
+        somme += tickets[i].price;
+    }
+    console.log(`=> Chiffre d'affaires total : ${somme}`);
+
+    console.log("");
+    console.log("*Trajet le plus vendu / ");
+    console.log("");
+    
+    //let max = 0;
+    /*let max = tickets[0];
+    for(let i=1; i<tickets.length; i++)
+    {
+        if(tickets[i].seatNumber < min)
+        {
+            min = tickets[i].seatNumber;
+            tickets.id = i + 1;
+            plus = 50 - min; 
+        }
+    }
+    console.log(`=> Trajet le plus vendu : ${trips.departure} --> ${trips.destination}`);
+     
+    console.log(`=> ${plus} :  tickets vendus `);
+    */
+
+
+
+}
 
 function affichertableau () {
 let choix;
@@ -511,6 +569,7 @@ let choix;
     console.log("                5- Rechercher un ticket");
     console.log("                6- Filtrer les trajets");
     console.log("                7- Trier les trajets");
+    console.log("                8- Statistique");
     console.log("                0- Quitter");
     
     console.log("");
@@ -553,6 +612,11 @@ switch(choix)
     case 7:
         console.log(`7. Trier les trajets`);
         trie();
+        break;
+    
+    case 8:
+        console.log(`8. Statistiques`);
+        statistiques();
         break;
     
     case 0:
