@@ -254,16 +254,21 @@ const trips = [
     }
 ];
 
-for (let i = 0; i < tickets.length; i++) {
+for (let i = 0; i < tickets.length; i++) 
+{ 
+//quand on ajoute des data de tickets stockees il faut aussi modifier et decrementer les availableSeats restant au train 
     let traject = null;
 
-    for (let j = 0; j < trips.length; j++) {
-        if (tickets[i].tripId === trips[j].id) {
+    for (let j = 0; j < trips.length; j++) 
+    {
+        if (tickets[i].tripId === trips[j].id) 
+        {
             traject = trips[j];
-        }
+        } 
     }
 
-    if (traject !== null) {
+    if (traject !== null) 
+    {
         traject.availableSeats--;
     }
 }
@@ -445,7 +450,7 @@ console.log(" Ticket annulé avec succès ");
 function recherche(){
     let name = prompt("Nom du passager : ").trim().toLowerCase();
     let results = tickets.filter (ticket => ticket.passengerName.trim().toLowerCase()===name);
-    if (results ===0 )
+    if (results.length == 0 )
     {
         console.log(`Aucune ticket de ${name} n est trouver `);
         return;
@@ -529,28 +534,26 @@ function statistiques(){
     console.log(`=> Chiffre d'affaires total : ${somme}`);
 
     console.log("");
-    console.log("*Trajet le plus vendu / ");
+    console.log("*Trajet le plus vendu  ");
     console.log("");
     
-    //let max = 0;
-    /*let max = tickets[0];
-    for(let i=1; i<tickets.length; i++)
+    let min=trips[0].availableSeats;
+    let plus=0;
+    for(let i=1; i<trips.length; i++)
     {
-        if(tickets[i].seatNumber < min)
+        if(trips[i].availableSeats < min)
         {
-            min = tickets[i].seatNumber;
-            tickets.id = i + 1;
-            plus = 50 - min; 
+            min=trips[i].availableSeats;
+            plus=i;
         }
     }
-    console.log(`=> Trajet le plus vendu : ${trips.departure} --> ${trips.destination}`);
+    const ticketsVendus = 50 - min ;
+    console.log(`=> Trajet le plus vendu : ${trips[plus].departure} --> ${trips[plus].destination}`);
      
-    console.log(`=> ${plus} :  tickets vendus `);
-    */
-
-
+    console.log(`=> ${ticketsVendus} :  tickets vendus `);
 
 }
+
 
 function affichertableau () {
 let choix;
