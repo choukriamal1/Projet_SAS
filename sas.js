@@ -254,18 +254,21 @@ const trips = [
     }
 ];
 
-for (let i = 0; i < tickets.length; i++) {
+for (let i=0; i<tickets.length; i++) 
+{
     //quand on ajoute des data de tickets stockees il faut aussi modifier 
     // et decrementer les availableSeats restant au train 
     let traject = null;
 
-    for (let j = 0; j < trips.length; j++) {
-        if (tickets[i].tripId === trips[j].id) {
+    for (let j = 0; j < trips.length; j++) 
+    {
+        if (tickets[i].tripId === trips[j].id) 
+        {
             traject = trips[j];
         }
     }
-
-    if (traject !== null) {
+    if (traject !== null) 
+    {
         traject.availableSeats--;
     }
 }
@@ -334,9 +337,8 @@ function achat() {
          {
            if(AnnulerTicket[i].tripId===id)
             {
-                 trouvee=true
-                 indexT=i
-                 
+                trouvee=true
+                indexT=i      
             }
          }
          if(trouvee)
@@ -391,7 +393,7 @@ function achat() {
             trajet.availableSeats--;
 
             console.log("");
-            console.log("Ticket achetÃƒÂ© avec succÃƒÂ¨s : ");
+            console.log("Ticket achete avec succees : ");
             console.log("");
             console.log(`Ticket #${ticket.id}`);
             console.log(`Passager : ${ticket.passengerName}`);
@@ -408,7 +410,7 @@ function achat() {
         }
     }
 }
- }
+}
 function afficherTicket() {
     console.log(" ====== TICKETS ====== ");
     if (tickets.length === 0) {
@@ -525,9 +527,12 @@ let tri_trips = [];
 function trie() {
     tri_trips = [...trips];//Spread operator or copy
     let swap;
-    for (let i = 0; i < tri_trips.length - 1; i++) {
-        for (let j = 0; j < tri_trips.length - 1 - i; j++) {
-            if (tri_trips[j].price > tri_trips[j + 1].price) {
+    for (let i=0; i < tri_trips.length - 1; i++) 
+    {
+        for (let j=0; j < tri_trips.length - 1 - i; j++) 
+        {
+            if (tri_trips[j].price > tri_trips[j + 1].price) 
+            {
                 swap = tri_trips[j];
                 tri_trips[j] = tri_trips[j + 1];
                 tri_trips[j + 1] = swap;
@@ -535,7 +540,8 @@ function trie() {
         }
     }
 
-    for (let i = 0; i < tri_trips.length; i++) {
+    for (let i = 0; i < tri_trips.length; i++) 
+    {
         console.log(`${tri_trips[i].departure} --> ${tri_trips[i].destination} : ${tri_trips[i].price} DH`);
     }
 }
